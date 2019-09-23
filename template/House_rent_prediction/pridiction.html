@@ -1,0 +1,129 @@
+	<!doctype html>
+	{% extends "House_rent_prediction/base.html" %}
+	{% load static %}
+	{% block content %}
+	<style>
+	#top-bar{
+	  margin-top: 200px;
+	  margin-bottom: 50px;
+	}
+	h2{
+    margin-left: 190px;
+	}
+	</style>
+<div class="container" id="top-bar">
+	<h2><span style="color:red">Predict</span> <span>House Rent</span></h2>
+	<div class ="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+<!-- 			<form> -->
+				<div class="alert alert-danger" role="alert" id="data-display" style="display:none">
+				</div>
+				<div class ="row">
+					<div class="col-md-6">
+						<div class="form-group">
+    						<label for="exampleFormControlSelect1">Country</label>
+    						<select class="form-control" id="exampleFormControlSelect1">
+      							<option>India</option>
+    						</select>
+  						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="exampleFormControlSelect1">State</label>
+							<select class="form-control" id="state_selection" onchange="city_selection_data()">
+								<option value="">--------------</option>
+	  							{%for state in list_of_state%}
+	  								<option value="{{state}}">{{state}}</option>
+	  							{%endfor%}
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class ="row">
+					<div class="col-md-6">
+						<div class="form-group">
+    						<label for="exampleFormControlSelect1">City</label>
+    						<select class="form-control" id="city_selection">
+      							<option value="">-----------</option>
+    						</select>
+  						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="exampleFormControlSelect1">Type Of Flat</label>
+							<select class="form-control" id="flat_selection" value="">
+	  							<option>3 BHK</option>
+	  							<option>2 BHK</option>
+	  							<option>1 BHK</option>
+	  							<option>1 RK</option>
+	  							<option>Single Room</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="exampleFormControlTextarea1">Discription Of Flat</label>
+					<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+				</div>
+				<button class="btn btn-primary" onclick="pridict_function()">Predict Rent</button>
+<!-- 			</form> -->
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+</div>
+<script>
+	function city_selection_data(){
+		var selected_state = $('#state_selection').children("option:selected").val()
+		$('#city_selection').find('option').remove().end();
+		{%for city_data in list_of_city%}
+			if('{{city_data.state_name}}' === selected_state){
+				val_key =  "{{city_data.city_name}}"
+				$('#city_selection').append($("<option></option>").attr("value",val_key).text(val_key));
+			}
+		{%endfor%}
+	}
+
+	function pridict_function(){
+		selected_state = $('#state_selection').children("option:selected").val()
+		selected_city = $('#city_selection').children("option:selected").val()
+		selected_flat_type = $('#flat_selection').children("option:selected").val()
+
+		if(selected_state && selected_city && selected_flat_type){
+
+			if(selected_flat_type === "3 BHK"){
+				var min=35000; 
+    			var max=50000;  
+			}
+			if(selected_flat_type === "2 BHK"){
+				var min=15000; 
+    			var max=25000;  
+			}
+			if(selected_flat_type === "1 BHK"){
+				var min=15000; 
+    			var max=10000;  
+			}
+			if(selected_flat_type === "1 RK"){
+				var min=10000; 
+    			var max=7000;  
+			}
+			if(selected_flat_type === "Single Room"){
+				var min=5000; 
+    			var max=8000;  
+			}
+    		var random =Math.floor(Math.random() * (+max - +min)) + +min; 
+    		$('#data-display').css("display","block");
+			$('#data-display').css("color","white");
+			$('#data-display').css("background-color","green");
+			$('#data-display').html('House Rent In'+"&nbsp"+selected_city+"&nbsp"+"For"+"&nbsp"+selected_flat_type+"&nbsp"+"is"+"&nbsp"+random)
+		}
+
+		else{
+			$('#data-display').css("display","block");
+			$('#data-display').css("color","white");
+			$('#data-display').css("background-color","#ff000085");
+			$('#data-display').html('Select All The Field')
+		}
+	}
+</script>
+{% endblock %}

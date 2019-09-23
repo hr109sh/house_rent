@@ -1,0 +1,134 @@
+<!doctype html>
+{% extends "House_rent_prediction/base.html" %}
+{% load static %}
+{% block content %}
+<style>
+#top-bar{
+      margin-top: 100px;
+      margin-bottom: 20px;
+}
+</style>
+
+<div class="container" id="top-bar">
+  <div class="row">
+    <div class="col-md-6">
+      <canvas id="AAPL-adjcent-close" width="80%" height="50%%"></canvas>
+    </div>
+    <div class="col-md-6">
+      <canvas id="GOOG-adjcent-close" width="80%" height="50%%"></canvas>
+    </div>
+  </div>
+  <br>
+  <br>
+  <hr>
+  <div class="row">
+    <div class="col-md-6">
+      <canvas id="AMZN-adjcent-close" width="80%" height="50%"></canvas>
+    </div>
+    <div class="col-md-6">
+      <canvas id="MSFT-adjcent-close" width="80%" height="50%"></canvas>
+    </div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+ <script type="text/javascript">
+
+ var GarageArea_data = eval('{{GarageArea_data}}')
+ var GarageYrBlt_data = eval('{{GarageYrBlt_data}}')
+ var GarageCars_data = eval('{{GarageCars_data}}')
+ var SalePrice_data = eval('{{SalePrice_data}}')
+
+
+ new Chart(document.getElementById("AAPL-adjcent-close"), {
+  type: 'bar',
+  data: {
+    labels: ['Attchd', 'Attchd', 'Attchd', 'Detchd', 'Attchd', 'Attchd', 'Attchd', 'Attchd', 'Detchd', 'Attchd'],
+    datasets: [
+      {
+        label: "Garage Type vs Garage Area",
+        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"
+      ,"#3e95cd", "#8e5ea2"],
+        data:GarageArea_data
+      }
+    ]
+  },
+
+  options: {
+    legend: { display: false },
+    title: {
+      display: true,
+      text: 'Garage Type vs Garage Area'
+    }
+  }
+
+});
+
+
+new Chart(document.getElementById("GOOG-adjcent-close"), {
+ type: 'bar',
+ data: {
+   labels: ['Attchd', 'Attchd', 'Attchd', 'Detchd', 'Attchd', 'Attchd', 'Attchd', 'Attchd', 'Detchd', 'Attchd'],
+   datasets: [
+     {
+       label: "Garage Type vs Garage Yr Blt",
+       backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"
+     ,"#3e95cd", "#8e5ea2"],
+       data:GarageYrBlt_data
+     }
+   ]
+ },
+ options: {
+   legend: { display: false },
+   title: {
+     display: true,
+     text: 'Garage Type vs Garage Yr Blt'
+   }
+ }
+});
+
+
+new Chart(document.getElementById("MSFT-adjcent-close"), {
+ type: 'bar',
+ data: {
+   labels: ['Attchd', 'Attchd', 'Attchd', 'Detchd', 'Attchd', 'Attchd', 'Attchd', 'Attchd', 'Detchd', 'Attchd'],
+   datasets: [
+     {
+       label: "Garage Type vs Garage Cars",
+       backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"
+     ,"#3e95cd", "#8e5ea2"],
+       data:GarageCars_data
+     }
+   ]
+ },
+ options: {
+   legend: { display: false },
+   title: {
+     display: true,
+     text: 'Garage Type vs Garage Cars'
+   }
+ }
+});
+
+new Chart(document.getElementById("AMZN-adjcent-close"), {
+ type: 'bar',
+ data: {
+   labels: ['Attchd', 'Attchd', 'Attchd', 'Detchd', 'Attchd', 'Attchd', 'Attchd', 'Attchd', 'Detchd', 'Attchd'],
+   datasets: [
+     {
+       label: "Garage Type vs Sale Price",
+       backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"
+     ,"#3e95cd", "#8e5ea2"],
+       data:SalePrice_data
+     }
+   ]
+ },
+ options: {
+   legend: { display: false },
+   title: {
+     display: true,
+     text: 'Garage Type vs Sale Price'
+   }
+ }
+});
+ </script>
+{% endblock %}

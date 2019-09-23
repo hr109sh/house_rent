@@ -1,0 +1,131 @@
+<!doctype html>
+{% extends "House_rent_prediction/base.html" %}
+{% load static %}
+{% block content %}
+<style>
+#top-bar{
+      margin-top: 100px;
+      margin-bottom: 20px;
+}
+</style>
+<div class="container" id="top-bar">
+  <div class="row">
+    <div class="col-md-6">
+      <canvas id="AAPL-adjcent-close" width="80%" height="50%"></canvas>
+    </div>
+    <div class="col-md-6">
+      <canvas id="GOOG-adjcent-close" width="80%" height="50%"></canvas>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-6">
+      <canvas id="AMZN-adjcent-close" width="80%" height="50%"></canvas>
+    </div>
+    <div class="col-md-6">
+      <canvas id="MSFT-adjcent-close" width="80%" height="50%"></canvas>
+    </div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+ <script type="text/javascript">
+
+ var GarageArea_data = eval('{{GarageArea_data}}')
+ var YrSold_data = eval('{{YrSold_data}}')
+ var YearBuild_data = eval('{{YearBuild_data}}')
+ var YearRemodAdd_data = eval('{{YearRemodAdd_data}}')
+
+
+ new Chart(document.getElementById("AAPL-adjcent-close"), {
+  type: 'line',
+  data: {
+    labels: ['PConc', 'CBlock', 'PConc', 'BrkTil', 'PConc', 'Wood', 'PConc', 'CBlock', 'BrkTil', 'BrkTil'],
+    datasets: [
+      {
+        label: "Foundation  vs Garage Area",
+        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"
+      ,"#3e95cd", "#8e5ea2"],
+        data:GarageArea_data
+      }
+    ]
+  },
+
+  options: {
+    legend: { display: false },
+    title: {
+      display: true,
+      text: 'Foundation  vs Garage Area'
+    }
+  }
+
+});
+
+
+new Chart(document.getElementById("GOOG-adjcent-close"), {
+ type: 'line',
+ data: {
+   labels: ['PConc', 'CBlock', 'PConc', 'BrkTil', 'PConc', 'Wood', 'PConc', 'CBlock', 'BrkTil', 'BrkTil'],
+   datasets: [
+     {
+       label: "Foundation  vs Garage Area",
+       backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"
+     ,"#3e95cd", "#8e5ea2"],
+       data:YrSold_data
+     }
+   ]
+ },
+ options: {
+   legend: { display: false },
+   title: {
+     display: true,
+     text: 'Foundation  vs Garage Area'
+   }
+ }
+});
+
+
+new Chart(document.getElementById("MSFT-adjcent-close"), {
+ type: 'line',
+ data: {
+   labels: ['PConc', 'CBlock', 'PConc', 'BrkTil', 'PConc', 'Wood', 'PConc', 'CBlock', 'BrkTil', 'BrkTil'],
+   datasets: [
+     {
+       label: "Foundation  vs Year Build",
+       backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"
+     ,"#3e95cd", "#8e5ea2"],
+       data:YearBuild_data
+     }
+   ]
+ },
+ options: {
+   legend: { display: false },
+   title: {
+     display: true,
+     text: 'Foundation  vs Year Build'
+   }
+ }
+});
+
+new Chart(document.getElementById("AMZN-adjcent-close"), {
+ type: 'line',
+ data: {
+   labels: ['PConc', 'CBlock', 'PConc', 'BrkTil', 'PConc', 'Wood', 'PConc', 'CBlock', 'BrkTil', 'BrkTil'],
+   datasets: [
+     {
+       label: "Foundation  vs Year Remod Add",
+       backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"
+     ,"#3e95cd", "#8e5ea2"],
+       data:YearRemodAdd_data
+     }
+   ]
+ },
+ options: {
+   legend: { display: false },
+   title: {
+     display: true,
+     text: 'Foundation  vs Year Remod Add'
+   }
+ }
+});
+ </script>
+{% endblock %}
